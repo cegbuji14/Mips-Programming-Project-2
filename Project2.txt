@@ -14,3 +14,8 @@
       la $t1, userInput
       add $t1, $t1, $t0
       lb $s0, ($t1)
+      beq $t0, 1000, conditions #if it has reached the 1000th character, start looping through the remaining characters
+      
+    conditions:
+    
+
