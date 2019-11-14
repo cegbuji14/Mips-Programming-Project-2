@@ -14,8 +14,12 @@
       la $t1, userInput
       add $t1, $t1, $t0
       lb $s0, ($t1)
-      beq $t0, 1000, conditions #if it has reached the 1000th character, start looping through the remaining characters
+      blt $t0, 1000, conditions #if the counter is less than 1000 (max amount of characters) 
       
     conditions:
+      beq $s0, 0, space #function to deal with spaces/tabs  space
+      ble $s0, 57, integers #function for the numbers 0-9  integers
+      bge $s0, 97, lowerASCI #function for asci values a-y   lowerASCI
+      bge $s0, 65, UpperASCI #function for asci values A-Y   UpperASCI
     
-
+    
