@@ -17,7 +17,7 @@
       blt $t0, 1000, conditions #if the counter is less than 1000 (max amount of characters) 
       
     conditions:
-      beq $s0, 0, space #function to deal with spaces/tabs  space
+      beq $s0, 32, space #function to deal with spaces/tabs  space
       ble $s0, 57, integers #function for the numbers 0-9  integers
       bge $s0, 97, lowerASCI #function for asci values a-y   lowerASCI
       bge $s0, 65, UpperASCI #function for asci values A-Y   UpperASCI
