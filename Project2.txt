@@ -8,3 +8,9 @@
       la $a0, userInput
       li $a1, 1001
       syscall
+      
+    start:
+    #Loads the address of inputted string into register $t1, puts first bit (character) of string in $s0
+      la $t1, userInput
+      add $t1, $t1, $t0
+      lb $s0, ($t1)
