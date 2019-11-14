@@ -1,5 +1,7 @@
 .data
     userInput: .space 1000
+    invalid_input: .asciiz "Invalid Input"
+    
 
 .text
     main:
@@ -14,12 +16,19 @@
       la $t1, userInput
       add $t1, $t1, $t0
       lb $s0, ($t1)
-      blt $t0, 1000, conditions #if the counter is less than 1000 (max amount of characters) 
+      blt $t0, 1000, space_remover #if the counter is less than 1000 (max amount of characters)
       
-    conditions:
-      beq $s0, 32, space #function to deal with spaces/tabs  space
-      ble $s0, 57, integers #function for the numbers 0-9  integers
-      bge $s0, 97, lowerASCI #function for asci values a-y   lowerASCI
-      bge $s0, 65, UpperASCI #function for asci values A-Y   UpperASCI
-    
-    
+     space_remover:
+     #For all characters in max 1000 character string, if the character is a space ignore it, if it is a space add it to new string
+       addi $t0, $t0, 1
+       beq $s0, 32, start
+       bne $s0, 32, new_string
+       
+      new_string:
+        
+       
+       
+     
+      
+      
+
