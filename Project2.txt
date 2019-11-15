@@ -6,6 +6,14 @@
     main:
     #Lets user input string
       li $v0, 8
+.data
+	userInput: .space 1001
+	output: .asciiz "\n"
+	notvalid: .asciiz "Invalid input"
+.text
+    main:
+    #Lets user input string
+      li $v0, 8
       la $a0, userInput
       li $a1, 1001
       syscall
@@ -60,4 +68,50 @@
       ble $s0, 116, integer
       
       bge $s0, 117, special
+      
+    special:
+	j invalid
+
+
+    gap:
+    #Accounts if there is gap in string
+    addi $t3,$t3, -1
+    j while			
+
+    integer:	
+      addi $t2, $t2, 1	
+      mul $t3, $t3, $t7
+      j while
+	
+
+    convert:
+    #Converts ascii values
+	la $t0, userInput
+	add $t0,$t0,$t6
+	lb $s0, ($t0)
+	addi $t2,$t2, -1
+	addi $t6, $t6, 1
+	blt $t2, 0, done
+	move $t8, $t2	
+	ble $s0, 57, num
+	ble $s0, 84, upper
+	ble $s0, 116, lower
+
+    num:
+    #For numbers
+      li $t5, 48
+      sub $s0, $s0, $t5
+      beq $t2, 0, combine
+      li $t9, 30
+      j exp
+      
+    upper:
+    
+    #For uppercase Ascii
+      li $t5, 55
+      sub $s0, $s0, $t5
+      beq $t2, 0, combine
+      li $t9, 30
+      j exp
+      ial
       
