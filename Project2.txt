@@ -1,34 +1,24 @@
 .data
-    userInput: .space 1000
-    invalid_input: .asciiz "Invalid Input"
-    
-
+	userInput: .space 1001
+	output: .asciiz "\n"
+	notvalid: .asciiz "Invalid input"
 .text
     main:
-    #Lets users input a 1000 character string
+    #Lets user input string
       li $v0, 8
       la $a0, userInput
       li $a1, 1001
       syscall
+      jal start
       
+      j finish
     start:
-    #Loads the address of inputted string into register $t1, puts first bit (character) of string in $s0
-      la $t1, userInput
-      add $t1, $t1, $t0
-      lb $s0, ($t1)
-      blt $t0, 1000, space_remover #if the counter is less than 1000 (max amount of characters)
-      
-     space_remover:
-     #For all characters in max 1000 character string, if the character is a space ignore it, if it is a space add it to new string
-       addi $t0, $t0, 1
-       beq $s0, 32, start
-       bne $s0, 32, new_string
-       
-      new_string:
-        
-       
-       
-     
-      
-      
-
+    #Loads address of inputted string into $t0
+    la $t0, userInput
+    add $t0,$t0,$t1
+    lb $s0, ($t0)
+    beq $s0, 0, end
+    beq $s0, 9, jump
+    beq $s0, 32, jump
+    move $t6, $t1
+    j during
