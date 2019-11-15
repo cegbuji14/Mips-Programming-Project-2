@@ -12,15 +12,27 @@
       jal start
       
       j finish
-    start:
+    before:
     #Loads address of inputted string into $t0
-    la $t0, userInput
-    add $t0,$t0,$t1
-    lb $s0, ($t0)
-    beq $s0, 0, end
-    beq $s0, 9, jump
-    beq $s0, 32, jump
-    move $t6, $t1
-    j during
+      la $t0, userInput
+      add $t0,$t0,$t1
+      lb $s0, ($t0)
+      beq $s0, 0, end
+      beq $s0, 9, jump
+      beq $s0, 32, jump
+      move $t6, $t1
+      j while
 
-
+    jump:
+    #If tab or space jump to next character
+      addi $t1, $t1, 1
+      j start
+	
+    while:
+    #During the program
+      li $t7, -1
+      la $t0, userInput
+      add $t0, $t0, $t1
+      lb $s0, ($t0)
+      bge $t2, 5, invalid
+      bge $t3, 1, invalid
